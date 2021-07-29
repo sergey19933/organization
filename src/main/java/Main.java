@@ -66,10 +66,10 @@ try {
      localDate = LocalDate.parse(data, formatter1);
 }catch (Exception e){
     DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d.M.yy");
-     localDate = LocalDate.parse(data, formatter1);
+     localDate = LocalDate.parse(data, formatter1).minusYears(100);
 }
 
-        System.out.println("Дата ввода: "+localDate.minusYears(100));
+        System.out.println("Дата ввода: "+localDate);
 
         for (int i = 0; i < companies.size(); i++) {
 
@@ -77,15 +77,14 @@ try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.y");
             LocalDate localDate1 = LocalDate.parse(date, formatter);
 
-            if (localDate1.isAfter(localDate.minusYears(100))) {
+            if (localDate1.isAfter(localDate)) {
                 System.out.println("Организация: " + companies.get(i).getName() + ". Дата основания: " + companies.get(i).getFounded());
             }
         }
         // запрос в виде кода валюты
 
         System.out.println("----------------------------------");
-
-        // запрос пользователя в виде даты.
+        
 
         System.out.println("Введите валюту");
 
