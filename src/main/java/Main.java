@@ -60,12 +60,16 @@ public class Main {
 
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         String data = bf.readLine().replace("/", ".");
+        LocalDate localDate;
+try {
+    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d.M.yyyy");
+     localDate = LocalDate.parse(data, formatter1);
+}catch (Exception e){
+    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d.M.yy");
+     localDate = LocalDate.parse(data, formatter1);
+}
 
-
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d.M.y");
-
-        LocalDate localDate = LocalDate.parse(data, formatter1);
-
+        System.out.println("Дата ввода: "+localDate.minusYears(100));
 
         for (int i = 0; i < companies.size(); i++) {
 
@@ -73,8 +77,8 @@ public class Main {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.y");
             LocalDate localDate1 = LocalDate.parse(date, formatter);
 
-            if (localDate1.isAfter(localDate)) {
-                System.out.println("Организация: " + companies.get(i).getName() + " .Дата основания: " + companies.get(i).getFounded());
+            if (localDate1.isAfter(localDate.minusYears(100))) {
+                System.out.println("Организация: " + companies.get(i).getName() + ". Дата основания: " + companies.get(i).getFounded());
             }
         }
         // запрос в виде кода валюты
@@ -93,7 +97,6 @@ public class Main {
         for (int i = 0; i < companies.size(); i++) {
             for (int j = 0; j < companies.get(i).getSecurities().size(); j++) {
                 for (int z = 0; z < companies.get(i).getSecurities().get(j).getCurrency().size(); z++) {
-
                     if (currency.equalsIgnoreCase(companies.get(i).getSecurities().get(j).getCurrency().get(z))) {
                         System.out.println("id " + companies.get(i).getId() + " Код: " + companies.get(i).getSecurities().get(j).getCode());
                     }
