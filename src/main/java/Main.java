@@ -45,7 +45,7 @@ public class Main {
                 String date = companies.get(i).getSecurities().get(j).getDate();
 
                 if (LocalDate.parse(date, formatter).isBefore(LocalDate.now())) {
-                    System.out.println("Организация: " + companies.get(i).getSecurities().get(j).getName() + " Код: " + companies.get(i).getSecurities().get(j).getCode() + " Дата истечения: " + companies.get(i).getSecurities().get(j).getDate());
+                    System.out.println("Ценные бумаги: " + companies.get(i).getSecurities().get(j).getName() + " Код: " + companies.get(i).getSecurities().get(j).getCode() + " Дата истечения: " + companies.get(i).getSecurities().get(j).getDate());
                     count++;
                 }
             }
