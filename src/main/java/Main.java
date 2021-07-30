@@ -58,33 +58,41 @@ public class Main {
 
         System.out.println("Введите дату");
 
+
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         String data = bf.readLine().replace("/", ".");
         LocalDate localDate;
-try {
-    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d.M.yyyy");
-     localDate = LocalDate.parse(data, formatter1);
-}catch (Exception e){
-    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d.M.yy");
-     localDate = LocalDate.parse(data, formatter1).minusYears(100);
-}
 
-        System.out.println("Дата ввода: "+localDate);
-
-        for (int i = 0; i < companies.size(); i++) {
-
-            String date = companies.get(i).getFounded();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.y");
-            LocalDate localDate1 = LocalDate.parse(date, formatter);
-
-            if (localDate1.isAfter(localDate)) {
+        if (data.isEmpty() || data.matches("[0-9]*")) {
+            System.out.println("Организации основаные после определенной даты:");
+            for (int i = 0; i < companies.size(); i++) {
                 System.out.println("Организация: " + companies.get(i).getName() + ". Дата основания: " + companies.get(i).getFounded());
+            }
+        } else {
+            try {
+                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d.M.yyyy");
+                localDate = LocalDate.parse(data, formatter1);
+            } catch (Exception e) {
+                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d.M.yy");
+                localDate = LocalDate.parse(data, formatter1).minusYears(100);
+            }
+
+            System.out.println("Дата ввода: " + localDate);
+            System.out.println("Организации основаные после определенной даты:");
+            for (int i = 0; i < companies.size(); i++) {
+                String date = companies.get(i).getFounded();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.y");
+                LocalDate localDate1 = LocalDate.parse(date, formatter);
+
+                if (localDate1.isAfter(localDate)) {
+                    System.out.println("Организация: " + companies.get(i).getName() + ". Дата основания: " + companies.get(i).getFounded());
+                }
             }
         }
         // запрос в виде кода валюты
 
         System.out.println("----------------------------------");
-        
+
 
         System.out.println("Введите валюту");
 
